@@ -1,0 +1,31 @@
+name: fsmart_smarthome_riverpod
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.0.5 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.3.6
+  flutter_blue: ^0.8.0  
+  kartal: ^3.2.0 
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/fonts/
+    - assets/images/
+    - assets/jsons/
+    - assets/lang/
+    - assets/lotties/
+    - assets/svg/
+
