@@ -1,31 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:fsmart_smarthome_riverpod/features/home/model/smart_item_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'components/home_component_main.dart';
 import 'package:kartal/kartal.dart';
 
-class HomeView extends StatelessWidget {
+import '../model/smart_item_model.dart';
+
+final selectHouseProvider = StateProvider<int>((ref) => 0);
+
+class HomeView extends ConsumerWidget {
   const HomeView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final List<SmartItemModel> smartItemModel = SmartItemModel.smartItemList;
+
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          ClipRRect(
-            clipBehavior: Clip.hardEdge,
-            borderRadius: BorderRadius.circular(16),
-            child: Image.asset(
-              'assets/images/avatar.png',
-              fit: BoxFit.cover,
-              width: 40,
-              height: 40,
-            ),
-          )
-        ],
-      ),
-      //Drawer
-      drawer: const Drawer(),
+      extendBody: true,
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         primary: true,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -39,44 +31,9 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               context.sized.emptySizedHeightBoxLow,
-              _dropDownMenu(context),
+              _dropDownMenu(context, ref),
               context.sized.emptySizedHeightBoxLow,
-              GridView.count(
-                  primary: false,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  childAspectRatio: 1.5,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 20,
-                  crossAxisCount: 2,
-                  children: smartItemModel
-                      .map((e) => Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 16.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    e.icon,
-                                    size: 48,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                  context.sized.emptySizedHeightBoxLow,
-                                  Text(e.title),
-                                  Text(e.subTitle,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                          color: Colors.grey, fontSize: 12)),
-                                ],
-                              ),
-                            ),
-                          ))
-                      .toList())
+              _gridView(smartItemModel, context)
             ],
           ),
         ),
@@ -84,39 +41,104 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Card _dropDownMenu(BuildContext context) {
-    return Card(
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton(
-          isExpanded: true,
-          itemHeight: 80,
-          alignment: Alignment.center,
-          borderRadius: BorderRadius.circular(16),
-          icon: const Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: Icon(Icons.keyboard_arrow_down),
-          ),
-          value: 0,
-          items: List.generate(
-              3,
-              (index) => DropdownMenuItem(
-                  value: index,
-                  child: SizedBox(
-                    width: context.general.mediaQuery.size.width - 84,
-                    child: ListTile(
-                      leading: const CircleAvatar(
-                          child: Icon(Icons.holiday_village_rounded)),
-                      title: Text('House ${index + 1}'),
-                      subtitle: const Text(
-                        '395 Amherst St, East Orange, NJ',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.grey, fontSize: 12),
+  GridView _gridView(
+      List<SmartItemModel> smartItemModel, BuildContext context) {
+    return GridView.count(
+        primary: false,
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        childAspectRatio: 1.2,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+        crossAxisCount: 2,
+        children: smartItemModel
+            .map((e) => InkWell(
+                  splashFactory: NoSplash.splashFactory,
+                  highlightColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeComponentsMainView(
+                          bodyWidget: Container(),
+                          title: e.title,
+                          subTitle: e.subTitle,
+                        ),
+                      )),
+                  // onTap: () => showModalBottomSheet<void>(
+                  //   enableDrag: true,
+                  //   context: context,
+                  //   builder: (context) => const SizedBox(
+                  //     height: 150,
+                  //     child: Padding(
+                  //       padding: EdgeInsets.symmetric(horizontal: 32.0),
+                  //       child: Text('Deneme'),
+                  //     ),
+                  //   ),
+                  // ),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            e.icon,
+                            size: 48,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          context.sized.emptySizedHeightBoxLow,
+                          Text(e.title),
+                          Text(e.subTitle,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 12)),
+                        ],
                       ),
                     ),
-                  ))),
-          onChanged: (value) => debugPrint(value.toString()),
-        ),
-      ),
-    );
+                  ),
+                ))
+            .toList());
   }
+}
+
+Card _dropDownMenu(BuildContext context, WidgetRef ref) {
+  return Card(
+    child: DropdownButtonHideUnderline(
+      child: DropdownButton(
+        isExpanded: true,
+        itemHeight: 80,
+        alignment: Alignment.center,
+        borderRadius: BorderRadius.circular(16),
+        icon: const Padding(
+          padding: EdgeInsets.only(right: 16.0),
+          child: Icon(Icons.keyboard_arrow_down),
+        ),
+        value: ref.watch(selectHouseProvider),
+        items: List.generate(
+            3,
+            (index) => DropdownMenuItem(
+                value: index,
+                child: SizedBox(
+                  width: context.general.mediaQuery.size.width - 84,
+                  child: ListTile(
+                    leading: const CircleAvatar(
+                        child: Icon(Icons.holiday_village_rounded)),
+                    title: Text('House ${index + 1}'),
+                    subtitle: const Text(
+                      '395 Amherst St, East Orange, NJ',
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
+                  ),
+                ))),
+        onChanged: (value) =>
+            ref.read(selectHouseProvider.notifier).state = value ?? 0,
+      ),
+    ),
+  );
 }
