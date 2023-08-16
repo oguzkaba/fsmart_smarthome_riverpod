@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fsmart_smarthome_riverpod/core/constants/app/color_contants.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class CustomBottomNavBar extends ConsumerWidget {
@@ -25,14 +26,14 @@ class CustomBottomNavBar extends ConsumerWidget {
           selectedIndex: selectedIndex ?? 0,
           onTabChange: onChange,
           tabMargin: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
-          backgroundColor: const Color(0xff393a3f),
+          backgroundColor: ColorConstants.bottomNavBarColor,
           haptic: true,
           tabBorderRadius: 24,
           curve: Curves.easeIn,
           gap: 8,
-          color: Colors.grey[800],
+          color: ColorConstants.grey,
           iconSize: 22,
-          tabBackgroundColor: Colors.white,
+          tabBackgroundColor: ColorConstants.white,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           tabs: items),
     );

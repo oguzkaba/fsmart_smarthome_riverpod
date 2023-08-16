@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../../../../core/constants/app/color_contants.dart';
 import '../../../dashboard/view/components/custom_bottom_nav_bar.dart';
 import '../../provider/home_provider.dart';
 
@@ -21,23 +22,23 @@ class HomeComponentsMainView extends ConsumerWidget {
       GButton(
         icon: Icons.dark_mode_outlined,
         text: 'Night Mode',
-        iconColor: Colors.grey,
-        textColor: Colors.black,
-        iconActiveColor: Colors.black,
+        iconColor: ColorConstants.grey,
+        textColor: ColorConstants.black,
+        iconActiveColor: ColorConstants.black,
       ),
       GButton(
         icon: Icons.remove_circle_outline,
         text: 'Off',
-        iconColor: Colors.grey,
-        textColor: Colors.black,
-        iconActiveColor: Colors.black,
+        iconColor: ColorConstants.grey,
+        textColor: ColorConstants.black,
+        iconActiveColor: ColorConstants.black,
       ),
       GButton(
         icon: Icons.bolt_rounded,
         text: 'Electric Safe',
-        iconColor: Colors.grey,
-        textColor: Colors.black,
-        iconActiveColor: Colors.black,
+        iconColor: ColorConstants.grey,
+        textColor: ColorConstants.black,
+        iconActiveColor: ColorConstants.black,
       ),
     ];
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../../../core/constants/app/color_contants.dart';
 import '../../home/view/home_view.dart';
 import '../../profile/view/profile_view.dart';
 import '../../statistics/view/statistics_view.dart';
@@ -18,23 +19,23 @@ class DashboarView extends ConsumerWidget {
       GButton(
         icon: Icons.home,
         text: 'Home',
-        iconColor: Colors.grey,
-        textColor: Colors.black,
-        iconActiveColor: Colors.black,
+        iconColor: ColorConstants.grey,
+        textColor: ColorConstants.black,
+        iconActiveColor: ColorConstants.black,
       ),
       GButton(
         icon: Icons.pie_chart,
         text: 'Statistics',
-        iconColor: Colors.grey,
-        textColor: Colors.black,
-        iconActiveColor: Colors.black,
+        iconColor: ColorConstants.grey,
+        textColor: ColorConstants.black,
+        iconActiveColor: ColorConstants.black,
       ),
       GButton(
         icon: Icons.person,
         text: 'Profile',
-        iconColor: Colors.grey,
-        textColor: Colors.black,
-        iconActiveColor: Colors.black,
+        iconColor: ColorConstants.grey,
+        textColor: ColorConstants.black,
+        iconActiveColor: ColorConstants.black,
       ),
     ];
 

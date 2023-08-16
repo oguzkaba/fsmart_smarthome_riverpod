@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/constants/app/color_contants.dart';
 import 'components/home_component_main.dart';
 import 'package:kartal/kartal.dart';
 
@@ -54,8 +55,8 @@ class HomeView extends ConsumerWidget {
         children: smartItemModel
             .map((e) => InkWell(
                   splashFactory: NoSplash.splashFactory,
-                  highlightColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
+                  highlightColor: ColorConstants.transparent,
+                  hoverColor: ColorConstants.transparent,
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -96,7 +97,7 @@ class HomeView extends ConsumerWidget {
                           Text(e.subTitle,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                  color: Colors.grey, fontSize: 12)),
+                                  color: ColorConstants.grey, fontSize: 12)),
                         ],
                       ),
                     ),
@@ -132,7 +133,8 @@ Card _dropDownMenu(BuildContext context, WidgetRef ref) {
                     subtitle: const Text(
                       '395 Amherst St, East Orange, NJ',
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                      style:
+                          TextStyle(color: ColorConstants.grey, fontSize: 12),
                     ),
                   ),
                 ))),
