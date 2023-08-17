@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:kartal/kartal.dart';
 
 import '../../../../core/constants/app/color_contants.dart';
 import '../../../dashboard/view/components/custom_bottom_nav_bar.dart';
@@ -49,9 +50,9 @@ class HomeComponentsMainView extends ConsumerWidget {
           children: [
             Text(
               title,
-              style: Theme.of(context).appBarTheme.titleTextStyle,
+              style: context.general.appTheme.appBarTheme.titleTextStyle,
             ),
-            Text(subTitle, style: Theme.of(context).textTheme.bodySmall),
+            Text(subTitle, style: context.general.textTheme.bodySmall),
           ],
         ),
         actions: [

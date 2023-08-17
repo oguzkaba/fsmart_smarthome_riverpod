@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fsmart_smarthome_riverpod/core/constants/app/route_constant.dart';
 import '../../../core/constants/app/color_contants.dart';
 import 'components/home_component_main.dart';
 import 'package:kartal/kartal.dart';
@@ -28,7 +29,7 @@ class HomeView extends ConsumerWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Welcome, Oğuz',
-                  style: Theme.of(context).textTheme.headlineLarge,
+                  style: context.general.textTheme.headlineLarge,
                 ),
               ),
               context.sized.emptySizedHeightBoxLow,
@@ -52,58 +53,47 @@ class HomeView extends ConsumerWidget {
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,
         crossAxisCount: 2,
-        children: smartItemModel
-            .map((e) => InkWell(
-                  splashFactory: NoSplash.splashFactory,
-                  highlightColor: ColorConstants.transparent,
-                  hoverColor: ColorConstants.transparent,
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeComponentsMainView(
-                          bodyWidget: Container(),
-                          title: e.title,
-                          subTitle: e.subTitle,
-                        ),
-                      )),
-                  // onTap: () => showModalBottomSheet<void>(
-                  //   enableDrag: true,
-                  //   context: context,
-                  //   builder: (context) => const SizedBox(
-                  //     height: 150,
-                  //     child: Padding(
-                  //       padding: EdgeInsets.symmetric(horizontal: 32.0),
-                  //       child: Text('Deneme'),
-                  //     ),
-                  //   ),
-                  // ),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+        children: smartItemModel.mapIndexed((index, e) {
+          return InkWell(
+            splashFactory: NoSplash.splashFactory,
+            highlightColor: ColorConstants.transparent,
+            hoverColor: ColorConstants.transparent,
+            onTap: () => context.route.navigation.push(
+              MaterialPageRoute(
+                builder: (context) => HomeComponentsMainView(
+                  bodyWidget: bodyWidget[index],
+                  title: e.title,
+                  subTitle: e.subTitle,
+                ),
+              ),
+            ),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      e.icon,
+                      size: 48,
+                      color: context.general.colorScheme.primary,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
-                            e.icon,
-                            size: 48,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          context.sized.emptySizedHeightBoxLow,
-                          Text(e.title),
-                          Text(e.subTitle,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  color: ColorConstants.grey, fontSize: 12)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ))
-            .toList());
+                    context.sized.emptySizedHeightBoxLow,
+                    Text(e.title),
+                    Text(e.subTitle,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            color: ColorConstants.grey, fontSize: 12)),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }).toList());
   }
 }
 
