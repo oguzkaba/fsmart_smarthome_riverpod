@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
@@ -34,14 +33,16 @@ class ClockChooseWidget extends StatelessWidget {
             style: context.general.textTheme.bodyMedium
                 ?.copyWith(color: ColorConstants.grey),
           ),
-          IconButton(
-              padding: EdgeInsets.zero,
-              onPressed: () {
+          context.sized.emptySizedWidthBoxLow,
+          InkWell(
+              onTap: () {
                 showTimePicker(
                     context: context,
                     initialTime: const TimeOfDay(hour: 6, minute: 00));
               },
-              icon: const Icon(Icons.keyboard_arrow_down_rounded))
+              child: const Icon(
+                Icons.keyboard_arrow_down_rounded,
+              ))
         ],
       ),
     );

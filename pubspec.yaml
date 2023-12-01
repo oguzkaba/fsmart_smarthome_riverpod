@@ -23,10 +23,10 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/fonts/
+    # - assets/fonts/
     - assets/images/
-    - assets/jsons/
-    - assets/lang/
-    - assets/lotties/
-    - assets/svg/
+    # - assets/jsons/
+    # - assets/lang/
+    # - assets/lotties/
+    # - assets/svg/
 

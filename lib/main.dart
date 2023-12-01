@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fsmart_smarthome_riverpod/core/constants/app/color_contants.dart';
 import 'features/splash/view/splash_view.dart';
 
 void main() {
@@ -15,7 +16,8 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const SplashView(),
       themeMode: ThemeMode.dark,
-      theme: ThemeData.dark(useMaterial3: true),
+      theme: ThemeData.dark(useMaterial3: true).copyWith(
+          cardTheme: const CardTheme(surfaceTintColor: ColorConstants.white)),
     );
   }
 }
